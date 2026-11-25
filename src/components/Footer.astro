@@ -1,0 +1,12 @@
+---
+import { site } from '../data/site';
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-night-2">
+  <div class="rule mx-auto flex max-w-7xl flex-col justify-between gap-3 border-t px-5 py-8 sm:flex-row md:px-8">
+    <p class="label">© {year} {site.name}</p>
+    <p class="label">Hecho a mano en Hurlingham</p>
+    <a href="#inicio" class="label ulink hover:!text-bone">Volver arriba ↑</a>
+  </div>
+</footer>

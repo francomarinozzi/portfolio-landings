@@ -1,0 +1,42 @@
+---
+import { site } from '../data/site';
+
+const values = [
+  {
+    title: 'Hablás conmigo',
+    text: 'De la primera charla a la publicación. Sin agencia en el medio, sin tickets, sin bots.',
+  },
+  {
+    title: 'Seguridad de verdad',
+    text: 'Estudio ciberseguridad: tu web y los datos de tus clientes se cuidan desde el diseño, no como un parche.',
+  },
+  {
+    title: 'Livianas y rápidas',
+    text: 'Cargan al instante incluso con datos móviles. Si tarda, la gente se va.',
+  },
+];
+---
+
+<section id="quien-soy" class="mx-auto max-w-7xl scroll-mt-16 px-5 py-28 md:px-8 md:py-40">
+  <div class="grid gap-10 lg:grid-cols-[14rem_1fr]">
+    <p class="label" data-reveal>Quién soy</p>
+    <div>
+      <p class="text-[clamp(1.6rem,3.2vw,2.8rem)] leading-[1.15] font-medium tracking-[-0.03em]" data-scrub-text>
+        Soy {site.name}, técnico universitario en Programación y estudiante de la Licenciatura en Ciberseguridad en
+        la UNAHUR. Trabajo como desarrollador de software a tiempo completo, pero decidí aprovechar mi tiempo libre
+        para ayudar a empresas y comercios a mejorar su presencia en internet.
+      </p>
+    </div>
+  </div>
+
+  <ol class="mt-28 grid gap-12 md:grid-cols-3 md:gap-10" data-stagger>
+    {
+      values.map((v) => (
+        <li class="rule border-t pt-6" data-stagger-item>
+          <h3 class="text-2xl font-medium tracking-tight">{v.title}</h3>
+          <p class="mt-3 leading-relaxed text-dim">{v.text}</p>
+        </li>
+      ))
+    }
+  </ol>
+</section>

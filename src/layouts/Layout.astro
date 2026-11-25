@@ -1,0 +1,41 @@
+---
+import '../styles/global.css';
+import { site } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = `${site.name} · ${site.role}`,
+  description = 'Diseño páginas web modernas, rápidas y accesibles para comercios y emprendimientos. Tu negocio en internet, sin vueltas y a un precio justo.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0b0a09" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script is:inline>
+      // Oculta los elementos animados antes del primer pintado (evita parpadeo).
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('js-anim');
+      }
+    </script>
+  </head>
+  <body class="grain bg-night text-bone">
+    <slot />
+    <script>
+      import '../scripts/animations';
+    </script>
+  </body>
+</html>

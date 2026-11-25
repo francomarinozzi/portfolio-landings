@@ -1,0 +1,31 @@
+---
+import { site, whatsappUrl } from '../data/site';
+---
+
+<section id="inicio" class="relative isolate flex min-h-svh flex-col justify-end overflow-hidden pt-16">
+  <div
+    class="pointer-events-none absolute -bottom-[30rem] left-1/2 -z-10 size-[64rem] -translate-x-1/2 rounded-full"
+    style="background: radial-gradient(closest-side, rgb(255 91 31 / .14), transparent)"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div class="mx-auto w-full max-w-7xl px-5 pt-14 pb-16 md:px-8 md:pb-20">
+    <h1 class="display text-[clamp(3.4rem,10.5vw,10rem)]" data-split>
+      Tu sitio web,<br />
+      <span class="text-neon">barato y rápido.</span>
+    </h1>
+
+    <div class="rule mt-14 grid gap-8 border-t pt-8 md:grid-cols-[1fr_auto] md:items-center">
+      <p class="max-w-xl text-lg leading-relaxed text-dim" data-reveal>
+        Soy {site.name} y hago páginas web para comercios y emprendimientos que todavía no tienen la suya.
+      </p>
+      <div class="flex flex-wrap gap-3" data-reveal>
+        <a href={whatsappUrl()} target="_blank" rel="noopener" class="btn btn-neon" data-magnetic>
+          Quiero mi web <span aria-hidden="true">↗</span>
+        </a>
+        <a href="#proyectos" class="btn btn-line" data-magnetic>Ver proyectos</a>
+      </div>
+    </div>
+  </div>
+</section>
