@@ -8,14 +8,14 @@ export interface Project {
   summary: string;
   features: string[];
   stack: string[];
-  images: ImageMetadata[]; // capturas que rotan dentro del marco del navegador
+  images?: ImageMetadata[]; // capturas que rotan (si no hay video)
+  video?: { mp4: string; webm?: string; poster: string }; // rutas dentro de /public
   url?: string; // link al sitio en vivo (opcional)
-  domain: string; // lo que se ve en la barra del navegador falso
-  accent: string; // color de acento del proyecto
 }
 
-// Para sumar un proyecto: copiá las capturas a src/assets/projects/, importalas arriba
-// y agregá un objeto a esta lista.
+// Para sumar un proyecto, agregá un objeto a esta lista con:
+// - capturas: copialas a src/assets/projects/ e importalas arriba (campo `images`), o
+// - video: dejalo en public/projects/ (campo `video`). Conviene comprimirlo antes (ver README).
 export const projects: Project[] = [
   {
     name: 'Krisis',
@@ -31,7 +31,24 @@ export const projects: Project[] = [
     ],
     stack: ['Next.js', 'Tailwind', 'Postgres', 'Mercado Pago', 'Cloudflare'],
     images: [krisis1, krisis2],
-    domain: 'krisis.com.ar',
-    accent: '#d0102c',
+  },
+  {
+    name: 'Quintela Car Detail',
+    category: 'Landing · Estética vehicular',
+    summary:
+      'Landing para un detailing de autos en Hurlingham. Muestra los servicios, deja comparar el antes y el después de cada trabajo y lleva directo a pedir turno por WhatsApp.',
+    features: [
+      'Carrusel de servicios',
+      'Comparador antes / después deslizable',
+      'Videos y galería de trabajos',
+      'Reseñas de Google',
+      'Turnos por WhatsApp y ubicación en el mapa',
+    ],
+    stack: ['HTML', 'CSS', 'JavaScript'],
+    video: {
+      mp4: '/projects/quintela.mp4',
+      webm: '/projects/quintela.webm',
+      poster: '/projects/quintela-poster.jpg',
+    },
   },
 ];

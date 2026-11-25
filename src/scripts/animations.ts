@@ -81,22 +81,45 @@ function setupSlides() {
   });
 }
 
+/* Videos de proyectos: se reproducen solo mientras están en pantalla */
+function setupVideos() {
+  $$<HTMLVideoElement>('video[data-autoplay]').forEach((video) => {
+    if (reduceMotion) {
+      video.controls = true;
+      video.preload = 'metadata';
+      return;
+    }
+    new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) video.play().catch(() => (video.controls = true));
+        else video.pause();
+      },
+      { threshold: 0.25 },
+    ).observe(video);
+  });
+}
+
 /* =========================================================
    Arranque
    ========================================================= */
 
+/** Scroll suave (undefined si el usuario prefiere menos movimiento). Lo usa el visor de proyectos. */
+export let lenis: Lenis | undefined;
+
 setupSlides();
+setupVideos();
 
 if (reduceMotion) {
   setupMenu();
   setupNav();
 } else {
-  const lenis = new Lenis({ lerp: 0.1, anchors: { offset: -64 } });
-  lenis.on('scroll', ScrollTrigger.update);
-  gsap.ticker.add((t) => lenis.raf(t * 1000));
+  const l = new Lenis({ lerp: 0.1, anchors: { offset: -64 } });
+  lenis = l;
+  l.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add((t) => l.raf(t * 1000));
   gsap.ticker.lagSmoothing(0);
 
-  setupMenu(lenis);
+  setupMenu(l);
   setupNav();
 
   /* Títulos: líneas que suben desde una máscara */
@@ -155,27 +178,6 @@ if (reduceMotion) {
       stagger: 0.12,
       scrollTrigger: { trigger: group, start: 'top 85%', once: true },
     });
-  });
-
-  /* Capturas de proyectos: se destapan y se acercan con el scroll */
-  $$('[data-clip-reveal]').forEach((wrap) => {
-    gsap.fromTo(
-      wrap,
-      { clipPath: 'inset(12% 10% 12% 10% round 12px)' },
-      {
-        clipPath: 'inset(0% 0% 0% 0% round 12px)',
-        ease: 'none',
-        scrollTrigger: { trigger: wrap, start: 'top 95%', end: 'top 35%', scrub: 0.6 },
-      },
-    );
-    const img = wrap.querySelector('[data-parallax-img]');
-    if (img) {
-      gsap.fromTo(
-        img,
-        { scale: 1.18 },
-        { scale: 1, ease: 'none', scrollTrigger: { trigger: wrap, start: 'top bottom', end: 'bottom top', scrub: true } },
-      );
-    }
   });
 
   /* Proceso: cada línea se llena en orden */

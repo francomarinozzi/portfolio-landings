@@ -12,70 +12,201 @@ import { whatsappUrl } from '../data/site';
     </h2>
   </div>
 
-  <div class="mt-20 flex flex-col gap-28">
+  <!-- Grilla de tarjetas: cada una abre el visor -->
+  <ul class="mt-20 grid gap-x-8 gap-y-14 md:grid-cols-2" data-stagger>
     {
-      projects.map((p) => (
-        <article>
-          <div class="rule grid items-baseline gap-4 border-t pt-6 md:grid-cols-[1fr_auto]" data-reveal>
-            <h3 class="text-[clamp(2.4rem,5vw,4rem)] leading-none font-medium tracking-[-0.04em]">{p.name}</h3>
-            <p class="label">{p.category}</p>
-          </div>
-
-          <div class="mt-8 overflow-hidden rounded-xl bg-night-2" data-clip-reveal>
-            <div class="relative aspect-[16/10] md:aspect-[16/9]" data-slides data-parallax-img>
-              {p.images.map((img, j) => (
-                <Image
-                  src={img}
-                  alt={`${p.name}: captura ${j + 1} del sitio`}
-                  widths={[700, 1100, 1600]}
-                  sizes="(min-width: 1280px) 1216px, 94vw"
-                  class:list={[
-                    'absolute inset-0 size-full object-cover object-top transition-opacity duration-1000',
-                    j > 0 && 'opacity-0',
-                  ]}
-                  data-slide
-                />
-              ))}
-            </div>
-          </div>
-
-          <div class="mt-10 grid gap-10 md:grid-cols-2">
-            <p class="max-w-md text-lg leading-relaxed text-dim" data-reveal>
-              {p.summary}
-            </p>
-            <div data-reveal>
-              <p class="label">Qué incluye</p>
-              <ul class="mt-3">
-                {p.features.map((f) => (
-                  <li class="rule border-b py-2.5">{f}</li>
-                ))}
-              </ul>
-              <p class="label mt-6">Hecho con</p>
-              <p class="mt-2 font-mono text-sm text-dim">{p.stack.join(' · ')}</p>
-              {p.url && (
-                <a href={p.url} target="_blank" rel="noopener" class="btn btn-line mt-8">
-                  Visitar sitio ↗
-                </a>
+      projects.map((p, i) => (
+        <li data-stagger-item>
+          <button
+            type="button"
+            class="group block w-full text-left"
+            data-open-project={i}
+            aria-haspopup="dialog"
+            aria-label={`Ver proyecto ${p.name}`}
+          >
+            <div class="relative aspect-[16/10] overflow-hidden rounded-xl bg-night-2">
+              {p.video ? (
+                <>
+                  <img
+                    src={p.video.poster}
+                    alt=""
+                    loading="lazy"
+                    class="absolute inset-0 size-full object-cover object-left-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                  />
+                  <video
+                    class="absolute inset-0 size-full object-cover object-left-top opacity-0 transition-opacity duration-500"
+                    muted
+                    loop
+                    playsinline
+                    preload="none"
+                    data-hover-video
+                  >
+                    {p.video.webm && <source src={p.video.webm} type="video/webm" />}
+                    <source src={p.video.mp4} type="video/mp4" />
+                  </video>
+                </>
+              ) : (
+                p.images?.[0] && (
+                  <Image
+                    src={p.images[0]}
+                    alt=""
+                    widths={[600, 900, 1200]}
+                    sizes="(min-width: 768px) 46vw, 92vw"
+                    class="absolute inset-0 size-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                  />
+                )
               )}
+              <span class="absolute right-4 bottom-4 translate-y-2 rounded-full bg-bone px-4 py-2 text-sm font-medium text-night opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
+                Ver proyecto
+              </span>
             </div>
-          </div>
-        </article>
+            <div class="mt-5 flex items-baseline justify-between gap-4">
+              <h3 class="text-2xl font-medium tracking-tight md:text-3xl">{p.name}</h3>
+              <span class="text-xl text-dim transition-all duration-500 group-hover:translate-x-1 group-hover:text-neon">→</span>
+            </div>
+            <p class="label mt-2">{p.category}</p>
+          </button>
+        </li>
       ))
     }
+  </ul>
 
-    <a
-      href={whatsappUrl('¡Hola Franco! Me gustaría que el próximo proyecto sea mi negocio.')}
-      target="_blank"
-      rel="noopener"
-      class="group rule grid items-baseline gap-4 border-y py-10 md:grid-cols-[1fr_auto]"
-      data-reveal
+  <a
+    href={whatsappUrl('¡Hola Franco! Me gustaría que el próximo proyecto sea mi negocio.')}
+    target="_blank"
+    rel="noopener"
+    class="group rule mt-20 grid items-baseline gap-4 border-y py-10 md:grid-cols-[1fr_auto]"
+    data-reveal
+  >
+    <span
+      class="text-[clamp(2.4rem,5vw,4rem)] leading-none font-medium tracking-[-0.04em] text-faint transition-colors duration-500 group-hover:text-bone"
     >
-      <span
-        class="text-[clamp(2.4rem,5vw,4rem)] leading-none font-medium tracking-[-0.04em] text-faint transition-colors duration-500 group-hover:text-bone"
-      >
-        Tu negocio<span class="text-neon">?</span>
-      </span>
-      <span class="label transition-colors group-hover:!text-neon">Empecemos ↗</span>
-    </a>
-  </div>
+      Tu negocio<span class="text-neon">?</span>
+    </span>
+    <span class="label transition-colors group-hover:!text-neon">Empecemos ↗</span>
+  </a>
 </section>
+
+<!-- Visor de proyectos -->
+<dialog
+  class="project-dialog m-auto h-dvh max-h-none w-screen max-w-none overflow-hidden bg-night p-0 text-bone md:h-[92dvh] md:w-[min(1400px,94vw)] md:rounded-2xl md:border md:border-rule"
+  aria-label="Proyectos"
+  data-project-dialog
+  data-lenis-prevent
+>
+  <div class="flex h-full flex-col">
+    <header class="flex h-14 shrink-0 items-end justify-end px-4 md:px-6">
+      <p class="sr-only" aria-live="polite">
+        Proyecto <span data-project-current>1</span> de {projects.length}
+      </p>
+      <button
+        type="button"
+        class="grid size-10 place-items-center rounded-full border border-rule text-dim transition-colors hover:border-bone hover:text-bone"
+        aria-label="Cerrar"
+        data-close-project
+      >
+        <svg viewBox="0 0 24 24" class="size-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
+      </button>
+    </header>
+
+    <div class="project-track flex min-h-0 flex-1 snap-x snap-mandatory overflow-x-auto overflow-y-hidden" data-project-track>
+      {
+        projects.map((p, i) => (
+          <article
+            class="h-full w-full shrink-0 snap-start overflow-y-auto overscroll-contain"
+            data-project-slide={i}
+            aria-roledescription="slide"
+            aria-label={`${p.name} (${i + 1} de ${projects.length})`}
+          >
+            <div class="grid gap-10 p-5 md:p-8 lg:grid-cols-[1.6fr_1fr] lg:gap-12">
+              <div class="relative overflow-hidden rounded-xl bg-night-2 lg:self-start">
+                {p.video ? (
+                  <div class="relative aspect-[1440/710]">
+                    <video
+                      class="absolute inset-0 size-full object-cover"
+                      muted
+                      loop
+                      playsinline
+                      preload="none"
+                      poster={p.video.poster}
+                      aria-label={`Recorrido en video por el sitio de ${p.name}`}
+                      data-autoplay
+                    >
+                      {p.video.webm && <source src={p.video.webm} type="video/webm" />}
+                      <source src={p.video.mp4} type="video/mp4" />
+                    </video>
+                  </div>
+                ) : (
+                  <div class="relative aspect-[16/10]" data-slides>
+                    {(p.images ?? []).map((img, j) => (
+                      <Image
+                        src={img}
+                        alt={`${p.name}: captura ${j + 1} del sitio`}
+                        widths={[700, 1100, 1500]}
+                        sizes="(min-width: 1024px) 860px, 94vw"
+                        loading="lazy"
+                        class:list={[
+                          'absolute inset-0 size-full object-cover object-top transition-opacity duration-1000',
+                          j > 0 && 'opacity-0',
+                        ]}
+                        data-slide
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <div class="pb-6">
+                <p class="label">{p.category}</p>
+                <h3 class="mt-3 text-[clamp(2.2rem,4vw,3.4rem)] leading-none font-medium tracking-[-0.04em]">{p.name}</h3>
+                <p class="mt-6 text-lg leading-relaxed text-dim">{p.summary}</p>
+                <p class="label mt-8">Qué incluye</p>
+                <ul class="mt-3">
+                  {p.features.map((f) => (
+                    <li class="rule border-b py-2.5">{f}</li>
+                  ))}
+                </ul>
+                <p class="label mt-6">Hecho con</p>
+                <p class="mt-2 font-mono text-sm text-dim">{p.stack.join(' · ')}</p>
+                {p.url && (
+                  <a href={p.url} target="_blank" rel="noopener" class="btn btn-line mt-8">
+                    Visitar sitio ↗
+                  </a>
+                )}
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    <footer class="rule flex h-16 shrink-0 items-center justify-between gap-4 border-t px-5 md:px-8">
+      <button type="button" class="text-sm font-medium text-bone transition-colors enabled:hover:text-neon disabled:opacity-25" data-project-prev>
+        ← Anterior
+      </button>
+      <div class="flex gap-2" aria-hidden="true">
+        {projects.map((_, i) => <span class="h-1 w-6 rounded-full bg-rule transition-colors" data-project-dot={i} />)}
+      </div>
+      <button type="button" class="text-sm font-medium text-bone transition-colors enabled:hover:text-neon disabled:opacity-25" data-project-next>
+        Siguiente →
+      </button>
+    </footer>
+  </div>
+</dialog>
+
+<style>
+  .project-dialog::backdrop {
+    background: rgb(11 10 9 / 0.8);
+    backdrop-filter: blur(6px);
+  }
+  .project-track {
+    scrollbar-width: none;
+  }
+  .project-track::-webkit-scrollbar {
+    display: none;
+  }
+</style>
+
+<script>
+  import '../scripts/projects-viewer';
+</script>

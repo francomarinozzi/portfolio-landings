@@ -27,7 +27,7 @@ const benefits = [
 // Tabla comparativa: true = sí, false = no, string = texto
 const columns = ['Agencia', 'Hacerlo vos', 'Conmigo'];
 const rows: { k: string; v: (string | boolean)[] }[] = [
-  { k: 'Precio', v: ['Alto', 'Barato, pero cobra todos los meses', 'Accesible'] },
+  { k: 'Precio', v: ['Alto', 'Cuota mensual', 'Accesible'] },
   { k: 'Diseño a medida', v: [true, false, true] },
   { k: 'Hablás con quien la hace', v: [false, false, true] },
   { k: 'Tiempo que te lleva a vos', v: ['Poco', 'Mucho', 'Poco'] },
@@ -71,13 +71,13 @@ const steps = [
     <!-- Por qué conmigo -->
     <div class="mt-36 grid gap-10 lg:grid-cols-[14rem_1fr]">
       <p class="label" data-reveal>Y por qué conmigo</p>
-      <div>
+      <div class="min-w-0">
         <h3 class="display text-[clamp(2.2rem,5vw,4.2rem)]" data-split>
           Lo mejor de una agencia, <span class="text-dim">al precio de hacerlo vos.</span>
         </h3>
 
         <div class="mt-14 overflow-x-auto" data-reveal>
-          <table class="w-full min-w-[36rem] border-collapse text-left">
+          <table class="w-full border-collapse text-left text-sm sm:text-base">
             <thead>
               <tr>
                 <th class="w-[34%] pb-4"><span class="sr-only">Comparación</span></th>
@@ -85,7 +85,7 @@ const steps = [
                   columns.map((c, i) => (
                     <th
                       class:list={[
-                        'label pb-4 font-normal',
+                        'label pr-3 pb-4 align-bottom font-normal sm:pr-4',
                         i === columns.length - 1 && '!text-neon',
                       ]}
                     >
@@ -99,11 +99,11 @@ const steps = [
               {
                 rows.map((r) => (
                   <tr class="rule border-t">
-                    <th class="py-5 pr-4 font-normal text-dim">{r.k}</th>
+                    <th class="py-4 pr-3 font-normal text-dim sm:py-5 sm:pr-4">{r.k}</th>
                     {r.v.map((cell, i) => {
                       const mine = i === r.v.length - 1;
                       return (
-                        <td class:list={['py-5 pr-4', mine ? 'font-medium text-bone' : 'text-dim']}>
+                        <td class:list={['py-4 pr-3 align-top sm:py-5 sm:pr-4', mine ? 'font-medium text-bone' : 'text-dim']}>
                           {cell === true ? (
                             <span class:list={[mine ? 'text-neon' : 'text-bone']}>Sí</span>
                           ) : cell === false ? (
