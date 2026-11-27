@@ -1,14 +1,13 @@
 ---
 import { Image } from 'astro:assets';
 import { projects } from '../data/projects';
-import { whatsappUrl } from '../data/site';
 ---
 
 <section id="proyectos" class="mx-auto max-w-7xl scroll-mt-16 px-5 py-28 md:px-8 md:py-40">
   <div class="grid gap-10 lg:grid-cols-[14rem_1fr]">
     <p class="label" data-reveal>Proyectos</p>
     <h2 class="display text-[clamp(2.6rem,6.5vw,5.6rem)]" data-split>
-      Trabajo <span class="text-dim">reciente.</span>
+      Mis <span class="text-dim">trabajos.</span>
     </h2>
   </div>
 
@@ -70,21 +69,6 @@ import { whatsappUrl } from '../data/site';
       ))
     }
   </ul>
-
-  <a
-    href={whatsappUrl('¡Hola Franco! Me gustaría que el próximo proyecto sea mi negocio.')}
-    target="_blank"
-    rel="noopener"
-    class="group rule mt-20 grid items-baseline gap-4 border-y py-10 md:grid-cols-[1fr_auto]"
-    data-reveal
-  >
-    <span
-      class="text-[clamp(2.4rem,5vw,4rem)] leading-none font-medium tracking-[-0.04em] text-faint transition-colors duration-500 group-hover:text-bone"
-    >
-      Tu negocio<span class="text-neon">?</span>
-    </span>
-    <span class="label transition-colors group-hover:!text-neon">Empecemos ↗</span>
-  </a>
 </section>
 
 <!-- Visor de proyectos -->
@@ -166,8 +150,6 @@ import { whatsappUrl } from '../data/site';
                     <li class="rule border-b py-2.5">{f}</li>
                   ))}
                 </ul>
-                <p class="label mt-6">Hecho con</p>
-                <p class="mt-2 font-mono text-sm text-dim">{p.stack.join(' · ')}</p>
                 {p.url && (
                   <a href={p.url} target="_blank" rel="noopener" class="btn btn-line mt-8">
                     Visitar sitio ↗

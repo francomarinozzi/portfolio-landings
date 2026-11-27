@@ -7,7 +7,6 @@ export interface Project {
   category: string;
   summary: string;
   features: string[];
-  stack: string[];
   images?: ImageMetadata[]; // capturas que rotan (si no hay video)
   video?: { mp4: string; webm?: string; poster: string }; // rutas dentro de /public
   url?: string; // link al sitio en vivo (opcional)
@@ -21,7 +20,7 @@ export const projects: Project[] = [
     name: 'Krisis',
     category: 'E-commerce · Indumentaria femenina',
     summary:
-      'Tienda online para una marca de ropa de diseño propio hecha a mano. La dueña carga prendas, talles y stock desde su propio panel, y las clientas compran y pagan sin salir del sitio.',
+      'Tienda online para emprendimiento de indumentaria femenina. La dueña carga prendas, talles y stock desde su propio panel, y las clientas compran y pagan sin salir del sitio.',
     features: [
       'Catálogo con filtros por prenda, talle y precio',
       'Carrito con stock por talle',
@@ -29,14 +28,13 @@ export const projects: Project[] = [
       'Panel de administración propio',
       'Mails automáticos de confirmación',
     ],
-    stack: ['Next.js', 'Tailwind', 'Postgres', 'Mercado Pago', 'Cloudflare'],
     images: [krisis1, krisis2],
   },
   {
     name: 'Quintela Car Detail',
     category: 'Landing · Estética vehicular',
     summary:
-      'Landing para un detailing de autos en Hurlingham. Muestra los servicios, deja comparar el antes y el después de cada trabajo y lleva directo a pedir turno por WhatsApp.',
+      'Landing para un detailing de autos. Muestra los servicios, deja comparar el antes y el después de cada trabajo y lleva directo a pedir turno por WhatsApp.',
     features: [
       'Carrusel de servicios',
       'Comparador antes / después deslizable',
@@ -44,7 +42,6 @@ export const projects: Project[] = [
       'Reseñas de Google',
       'Turnos por WhatsApp y ubicación en el mapa',
     ],
-    stack: ['HTML', 'CSS', 'JavaScript'],
     video: {
       mp4: '/projects/quintela.mp4',
       webm: '/projects/quintela.webm',

@@ -180,18 +180,6 @@ if (reduceMotion) {
     });
   });
 
-  /* Proceso: cada línea se llena en orden */
-  const steps = document.querySelector('[data-steps]');
-  if (steps) {
-    gsap.to($$('[data-step-line]', steps), {
-      scaleX: 1,
-      duration: 0.9,
-      ease: 'power3.inOut',
-      stagger: 0.3,
-      scrollTrigger: { trigger: steps, start: 'top 80%', once: true },
-    });
-  }
-
   /* Botones magnéticos */
   if (finePointer) {
     $$('[data-magnetic]').forEach((btn) => {

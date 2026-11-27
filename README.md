@@ -12,16 +12,11 @@ npm run build    # genera dist/ listo para subir
 
 | Qué | Archivo |
 | --- | --- |
-| Nombre, WhatsApp, mail, precio | `src/data/site.ts` |
+| Nombre, WhatsApp, mail, LinkedIn, precio | `src/data/site.ts` |
 | Proyectos (capturas en `src/assets/projects/`) | `src/data/projects.ts` |
 | Colores, vidrio, burbujas, botones | `src/styles/global.css` |
 | Animaciones | `src/scripts/animations.ts` |
 | Secciones | `src/components/*.astro` |
-
-## Formulario de contacto
-
-Sacá una clave gratis en https://web3forms.com, copiá `.env.example` a `.env` y completá `PUBLIC_WEB3FORMS_KEY`.
-Sin clave, el formulario abre el cliente de mail del visitante con el mensaje armado.
 
 ## Videos de proyectos
 
